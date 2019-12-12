@@ -1,0 +1,40 @@
+<div class="row align-items-center">
+    <div class="col">
+        <div class="md-form">
+            <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
+            <label for="search-input">Search</label>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table mdbTable #tableEl="mdbTable" small="true" stickyHeader="true" hover="true" striped="true" borderless="true" class="z-depth-1">
+        <thead>
+            <tr>
+                <th [mdbTableSort]="elements" [sortBy]="columnName.sortBy" (sorted)="sorted($event)" *ngFor="let columnName of columnsNames" scope="col" class="cursor-pointer primary-color white-text">
+                    {{columnName.name | titlecase}}
+                    <mdb-icon fas icon="sort"></mdb-icon>
+                </th>
+            </tr>
+        </thead>
+        <tbody #row>
+            <tr mdbTableCol (click)="selectRow(element)" [ngClass]="{ 'blue lighten-3 white-text' : element.isSelected }" *ngFor="let element of elements; let i = index">
+                <ng-container *ngFor="let column of columns">
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        <span>
+                            {{ 
+                                element[column]
+                            }}
+                        </span>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+        <tfoot class="primary-color white-text">
+            <tr>
+                <td [attr.colspan]="columnsPagination">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
