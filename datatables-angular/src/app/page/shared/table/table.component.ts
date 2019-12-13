@@ -45,6 +45,8 @@ export class TableComponent implements OnInit, OnDestroy {
 
   direction = 'ASC';
 
+  sort = 'sort-up';
+
   columnsNames: ColumnModel[];
 
   columns: string[];
@@ -94,9 +96,11 @@ export class TableComponent implements OnInit, OnDestroy {
     this.orderBy = event.sortBy;
     if (this.direction === 'ASC') {
       this.direction = 'DESC';
+      this.sort = 'sort-down';
       this.loadTable();
     } else if (this.direction === 'DESC') {
       this.direction = 'ASC';
+      this.sort = 'sort-up';
       this.loadTable();
     }
   }

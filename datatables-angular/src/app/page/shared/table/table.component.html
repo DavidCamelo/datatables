@@ -12,7 +12,7 @@
             <tr>
                 <th [mdbTableSort]="elements" [sortBy]="columnName.sortBy" (sorted)="sorted($event)" *ngFor="let columnName of columnsNames" scope="col" class="cursor-pointer primary-color white-text">
                     {{columnName.name | titlecase}}
-                    <mdb-icon fas icon="sort"></mdb-icon>
+                    <mdb-icon *ngIf="columnName.sortBy === orderBy" fas [icon]="sort"></mdb-icon>
                 </th>
             </tr>
         </thead>
